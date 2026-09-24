@@ -10,7 +10,8 @@ spring:
     active: ${SPRING_PROFILES_ACTIVE:dev}
   data:
     mongodb:
-      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/prep_ai_db}
+      uri: ${MONGODB_URI:${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/prep_ai_db}}
+      database: ${MONGODB_DATABASE:prep_ai_db}
       auto-index-creation: true
     redis:
       host: ${SPRING_DATA_REDIS_HOST:localhost}

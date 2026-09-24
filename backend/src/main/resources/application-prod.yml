@@ -2,6 +2,7 @@ spring:
   data:
     mongodb:
       uri: ${MONGODB_URI:mongodb://localhost:27017/prep_ai_db}
+      database: ${MONGODB_DATABASE:prep_ai_db}
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
