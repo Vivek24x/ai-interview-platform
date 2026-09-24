@@ -144,12 +144,6 @@ export const LoginPage: React.FC = () => {
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
-
-          <div className="mt-6 border-t border-slate-100 pt-4 text-center">
-            <span className="text-xs text-slate-500">
-              Demo Admin Login: <strong className="text-slate-700">admin@prepai.com / admin123</strong>
-            </span>
-          </div>
         </div>
       </div>
     </div>
