@@ -52,3 +52,18 @@ services:
           type: web
           name: prep-ai-backend
           envVarKey: AI_SERVICE_SECRET
+
+  # ---------------------------------------------------------------------------
+  # 3. Web Frontend (React 18 / Vite SPA)
+  # ---------------------------------------------------------------------------
+  - type: static
+    name: prep-ai-frontend
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://prep-ai-backend-u2ga.onrender.com/api/v1
