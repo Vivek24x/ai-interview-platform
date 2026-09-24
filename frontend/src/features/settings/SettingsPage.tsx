@@ -1,6 +1,5 @@
 import React from 'react';
 import { useAuthStore } from '@/store/authStore';
-import { User, Bell, Lock, Palette, Shield, Trash2, CheckCircle2 } from 'lucide-react';
 
 export const SettingsPage: React.FC = () => {
   const { user } = useAuthStore();

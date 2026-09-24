@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
   Clock,
-  CheckCircle2,
-  XCircle,
-  HelpCircle,
   Flag,
   ArrowRight,
   ArrowLeft,
   RotateCcw,
   Award,
-  Sparkles,
-  BarChart3,
 } from 'lucide-react';
 
 interface QuizQuestion {

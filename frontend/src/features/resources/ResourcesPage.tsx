@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, FileText, Search, Bookmark, ExternalLink } from 'lucide-react';
+import { Search, ExternalLink } from 'lucide-react';
 
 const RESOURCES = [
   {

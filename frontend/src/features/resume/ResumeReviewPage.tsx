@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import {
   UploadCloud,
-  FileCheck,
   CheckCircle2,
   AlertTriangle,
   Sparkles,
-  Download,
   Copy,
-  ChevronRight,
-  TrendingUp,
-  BrainCircuit,
-  FileText,
 } from 'lucide-react';
-import { apiClient } from '@/api/axiosClient';
 
 const TARGET_ROLES = [
   'Full-Stack Software Engineer (Java / React)',

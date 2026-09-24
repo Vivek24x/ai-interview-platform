@@ -6,8 +6,6 @@ import {
   CheckCircle2,
   ChevronRight,
   ArrowLeft,
-  HelpCircle,
-  Clock,
   Sparkles,
   BookOpen,
 } from 'lucide-react';
