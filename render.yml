@@ -1,0 +1,52 @@
+services:
+  # ---------------------------------------------------------------------------
+  # 1. Core REST Backend (Spring Boot 3.3.x / Java 21)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: prep-ai-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    region: oregon
+    healthCheckPath: /api/v1/actuator/health
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: MONGODB_URI
+        sync: false # Set this to your MongoDB Atlas connection string in Render Dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: AI_SERVICE_BASE_URL
+        fromService:
+          type: web
+          name: prep-ai-service
+          property: host
+      - key: AI_SERVICE_SECRET
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        value: "*" # Or your Vercel frontend URL e.g. https://your-project.vercel.app
+
+  # ---------------------------------------------------------------------------
+  # 2. AI Intelligence Microservice (FastAPI + Google Gemini)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: prep-ai-service
+    runtime: docker
+    dockerfilePath: ./ai-service/Dockerfile
+    dockerContext: ./ai-service
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: GEMINI_API_KEY
+        sync: false # Paste your Google Gemini API Key in Render Dashboard
+      - key: INTERNAL_API_SECRET
+        fromService:
+          type: web
+          name: prep-ai-backend
+          envVarKey: AI_SERVICE_SECRET
