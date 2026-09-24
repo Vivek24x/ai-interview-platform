@@ -1,0 +1,50 @@
+[
+  {
+    "category": "Quantitative Aptitude",
+    "topic": "Time and Work",
+    "question": "A can finish a work in 18 days and B can do the same work in half the time taken by A. Then, working together, what part of the same work can they finish in a day?",
+    "options": ["1/6", "1/9", "2/5", "2/7"],
+    "correctAnswer": "1/6",
+    "explanation": "A's 1 day's work = 1/18; B's 1 day's work = 1/9. (A + B)'s 1 day's work = 1/18 + 1/9 = 3/18 = 1/6."
+  },
+  {
+    "category": "Quantitative Aptitude",
+    "topic": "Speed, Time & Distance",
+    "question": "A train 240 m in length crosses a telegraph post in 16 seconds. What is the speed of the train in km/hr?",
+    "options": ["54 km/hr", "60 km/hr", "45 km/hr", "72 km/hr"],
+    "correctAnswer": "54 km/hr",
+    "explanation": "Speed = Distance / Time = 240 / 16 = 15 m/sec = 15 * (18/5) = 54 km/hr."
+  },
+  {
+    "category": "Quantitative Aptitude",
+    "topic": "Permutations & Combinations",
+    "question": "In how many ways can the letters of the word 'LEADER' be arranged?",
+    "options": ["72", "144", "360", "720"],
+    "correctAnswer": "360",
+    "explanation": "Total letters = 6. 'E' appears twice. Total arrangements = 6! / 2! = 720 / 2 = 360."
+  },
+  {
+    "category": "Logical Reasoning",
+    "topic": "Number Series",
+    "question": "Look at this series: 2, 1, (1/2), (1/4), ... What number should come next?",
+    "options": ["(1/3)", "(1/8)", "(2/8)", "(1/16)"],
+    "correctAnswer": "(1/8)",
+    "explanation": "This is a simple division series; each number is one-half of the previous number."
+  },
+  {
+    "category": "Logical Reasoning",
+    "topic": "Syllogisms",
+    "question": "Statements: All bags are cakes. All lamps are cakes. Conclusions: I. Some lamps are bags. II. No lamp is bag.",
+    "options": ["Only I follows", "Only II follows", "Either I or II follows", "Neither I nor II follows"],
+    "correctAnswer": "Either I or II follows",
+    "explanation": "Since both premises are universal affirmative and the terms 'lamps' and 'bags' form a complementary pair (Some and No), either I or II follows."
+  },
+  {
+    "category": "Verbal Ability",
+    "topic": "Sentence Correction",
+    "question": "Identify the incorrect part: 'Neither the teacher (A) nor the students (B) was present (C) in the seminar (D).'",
+    "options": ["A", "B", "C", "D"],
+    "correctAnswer": "C",
+    "explanation": "When two subjects are joined by 'neither... nor', the verb agrees with the closer subject ('the students' is plural, so 'were present' is required)."
+  }
+]

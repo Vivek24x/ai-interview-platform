@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # ---------------------------------------------------------------------------
+  # 1. MongoDB Database
+  # ---------------------------------------------------------------------------
+  mongodb:
+    image: mongo:7.0
+    container_name: prep-ai-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: adminpassword
+      MONGO_INITDB_DATABASE: prep_ai_db
+    volumes:
+      - mongo_data:/data/db
+      - ./database/mongo-init:/docker-entrypoint-initdb.d
+    networks:
+      - prep-ai-network
+
+  # ---------------------------------------------------------------------------
+  # 2. Redis Cache & Fast Leaderboards
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7.2-alpine
+    container_name: prep-ai-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass redispassword
+    volumes:
+      - redis_data:/data
+    networks:
+      - prep-ai-network
+
+  # ---------------------------------------------------------------------------
+  # 3. AI Service (Python FastAPI + Google Gemini)
+  # ---------------------------------------------------------------------------
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: prep-ai-service
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - INTERNAL_API_SECRET=${INTERNAL_API_SECRET:-prep_ai_internal_token_987}
+      - ENVIRONMENT=development
+    networks:
+      - prep-ai-network
+
+  # ---------------------------------------------------------------------------
+  # 4. Core Backend (Spring Boot 3.3.x / Java 21)
+  # ---------------------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: prep-ai-backend
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+      - redis
+      - ai-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATA_MONGODB_URI=mongodb://admin:adminpassword@mongodb:27017/prep_ai_db?authSource=admin
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
+      - SPRING_DATA_REDIS_PASSWORD=redispassword
+      - AI_SERVICE_BASE_URL=http://ai-service:8000
+      - AI_SERVICE_SECRET=${INTERNAL_API_SECRET:-prep_ai_internal_token_987}
+      - JWT_SECRET=${JWT_SECRET:-9a4f2c8d3e71b5a0f6c2e8d1a4b7c9e3f5a8b2d1c4e7f0a3b6d9e2c5f8a1b4d7e}
+    networks:
+      - prep-ai-network
+
+  # ---------------------------------------------------------------------------
+  # 5. Frontend Client (React + Vite)
+  # ---------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: prep-ai-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8080/api/v1
+    networks:
+      - prep-ai-network
+
+networks:
+  prep-ai-network:
+    driver: bridge
+
+volumes:
+  mongo_data:
+    driver: local
+  redis_data:
+    driver: local

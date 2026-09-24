@@ -1,0 +1,100 @@
+{
+  "info": {
+    "name": "PrepAI — AI Interview Preparation Platform API",
+    "description": "Comprehensive Postman collection covering Authentication, Practice, Coding Sandbox, AI Mock Interviews, Quizzes, Resume Reviews, and Admin controls.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@prepai.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Alex Mercer\",\n  \"email\": \"alex@university.edu\",\n  \"password\": \"password123\",\n  \"college\": \"State Tech University\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Coding Problems",
+      "item": [
+        {
+          "name": "Get All Problems",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/coding/problems", "host": ["{{baseUrl}}"], "path": ["coding", "problems"] }
+          }
+        },
+        {
+          "name": "Submit Code Solution",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"problemId\": \"two-sum\",\n  \"language\": \"java\",\n  \"sourceCode\": \"class Solution { ... }\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/coding/submit", "host": ["{{baseUrl}}"], "path": ["coding", "submit"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Mock Interviews",
+      "item": [
+        {
+          "name": "Start Mock Interview Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"interviewType\": \"TECHNICAL\",\n  \"targetRole\": \"Full-Stack Software Engineer\",\n  \"targetCompany\": \"Google\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/interviews/start", "host": ["{{baseUrl}}"], "path": ["interviews", "start"] }
+          }
+        },
+        {
+          "name": "Send Candidate Turn Answer",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"MongoDB uses WiredTiger with document-level optimistic concurrency control and ticket-based queuing.\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/interviews/{{sessionId}}/reply", "host": ["{{baseUrl}}"], "path": ["interviews", "{{sessionId}}", "reply"] }
+          }
+        }
+      ]
+    }
+  ]
+}
