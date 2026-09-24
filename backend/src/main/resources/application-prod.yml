@@ -12,3 +12,8 @@ logging:
   level:
     com.prep.ai: INFO
     org.springframework.security: WARN
+
+management:
+  health:
+    redis:
+      enabled: false
